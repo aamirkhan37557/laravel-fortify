@@ -3,7 +3,7 @@ laravel fortify does not use bootstrap we had to configure it manually
                                      composer require laravel/fortify
 publish its vendor
 
-                                    php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+      php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 
                                     php artisan migrate
             

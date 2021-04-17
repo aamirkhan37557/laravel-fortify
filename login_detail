@@ -1,0 +1,24 @@
+first install the fortify package
+
+then install the bootstrap because bootstrap does not come with fortify package
+
+then create fortify login and register in web.php or app service provider in boot option
+
+use Laravel\Fortify\Fortify;
+
+Fortify::loginview(function () {
+   return view('login');
+   });
+
+Fortify::registerView(function () {
+  return view('register');
+    });
+
+
+the copy and paste app.blade.php 
+where its gives you the defalut laravel nav bar and login and register link and if you are login  then it will give you logout option
+
+
+now create login for user for that follow the following steps
+
+

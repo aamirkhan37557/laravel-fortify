@@ -1,0 +1,7 @@
+after creating register and login  fortify routes 
+
+create the view for register by defalut it just takes name , email , password and confirm password
+
+note after creating user or registering user it will redirect to home page by defalut becuase in route service provider we had redirected it to the
+home route
+

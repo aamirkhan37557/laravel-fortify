@@ -6,7 +6,7 @@ php artisan ui vue
 <script src="{{ asset('js/app.js') }}" defer></script>                      include js script
 
 npm install && npm run dev
-
+npm run watch
    <div id='app'> 
 <example-component></example-component>
 </div>

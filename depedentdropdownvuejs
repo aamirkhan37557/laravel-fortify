@@ -1,0 +1,109 @@
+here we will create depentdent drop down country state and city
+
+first create a controller for country or category inside api folder
+
+              php artisan make:controller api/getcat
+              
+  now create a function inside it to get all the categories  i json format 
+   
+   
+                         use  App\Models\Category;
+                         
+                         public function getcategory(){
+                           $cat = Category::get();
+                           return response()->json($cat);
+                           }
+                           
+now go to the component and first display the data means all categories and check it in url 
+as all categories or country should be shown as page refresh or visted for that we need mounted function 
+
+                        mounted() {
+                                this.getCategories();
+                            },
+                            
+  // first check either it is working or not so check the function and get the data from database                          
+     
+                    getCategories(){
+                        console.log('hi');
+                        axios.get('getcat').then(  response=> {  console.log(response)
+                      })
+                        }
+     now as we checked the responses so store that response in the variable which we will create in data return function
+                                             data(){
+                                                       return{
+                                                          categories:[],
+                                                       }
+                                                        },
+                                                        
+                                                         getCategories(){
+                                                                    axios.get('getcat').then(  response=> {  this.categories=response.data;
+                                                                  })
+                                                                  }
+                                                                  
+ now we will display the data from database v-model cat and make it null or zero
+  <select class="form-control" name="category_id" v-model="cat">
+         <option value=""> choose category</option>
+         
+           <option v-for="data in categories"    value=""> {{data.name}}</option>
+      </select>
+      
+      
+      now all the data will be displayed
+      
+      now we need to display  data in state or subcategory according to the id selected in category or country for that first display sub category
+      data
+      
+      now create a route for it to display data for that we use dumy id for category_id bcz it is foreign key in sub category table or state table
+      
+                              Route::get('subcat','api\getcat@subcategory');
+                                 public function subcategory(){
+                                         $subcat = SubCategory::where('Category_id',1)->get();
+                                           return response()->json($subcat);
+                                         }
+       
+       now we will display data according to the selection in category table so for that we need to use @change function in 
+       category table
+                             
+                               <select class="form-control" name="category_id" v-model="cat" @change="getsubcat()">
+                                       <option value=""> choose category</option>
+                                         <option v-for="data in categories"    value=""> {{data.name}}</option>
+                                    </select>
+                                    
+                                    now to check @change check the getsub cat function
+                                        getsubcat(){
+                                              console.log("hello sub cat");
+                                          }
+   
+   now as we want to display data in the way where  when category is selected  display subcat data according ly selected category
+   here in my case Category_id is foreign key so we will pass it as parameter and as we had pass cat in v model which was equal to 0 or null
+   so we will send that data to the controller and get this id in the controller
+   
+                                 getsubcat(){
+                                 axios.get('subcat', {params:{Category_id:this.cat}}).then(  response=> {  
+                                  console.log(response);
+                              })
+                              
+                              controller 
+                              we had change the Category_id = 1 to the $request->Category_id to get the data belong to this 
+                              
+                                public function subcategory(Request $request ){
+           $subcat = SubCategory::where('Category_id',$request->Category_id)->get();
+             return response()->json($subcat);
+           
+           }
+           
+           now we will display that data 
+           
+   
+   
+                                          
+       
+      
+      
+                                                                  
+                                                                
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+                                                                  

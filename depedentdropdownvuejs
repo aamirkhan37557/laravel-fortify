@@ -78,6 +78,9 @@ as all categories or country should be shown as page refresh or visted for that 
    here in my case Category_id is foreign key so we will pass it as parameter and as we had pass cat in v model which was equal to 0 or null
    so we will send that data to the controller and get this id in the controller
    
+   //before passing parameter add the value and key to the option  in select category or country
+     <option v-for="data in categories"   :value="data.id" :key="data.id"> 
+   
                                  getsubcat(){
                                  axios.get('subcat', {params:{Category_id:this.cat}}).then(  response=> {  
                                   console.log(response);

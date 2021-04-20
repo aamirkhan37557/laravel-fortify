@@ -95,7 +95,12 @@ as all categories or country should be shown as page refresh or visted for that 
            
            }
            
-           now we will display that data 
+           now we will display that data in sub category 
+           
+               <select class="form-control" name="subcategory_id" v-model="subcat">
+                                        <option value="">choose subcategory</option>
+         <option v-for="data in getsubcatdata"   :value="data.id" :key="data.id"> {{data.name}}</option> 
+                                    </select>
            
    
    

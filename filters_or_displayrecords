@@ -1,0 +1,62 @@
+we had scenario in case we wabt to filter or display data in menu bar
+
+he had main menu or parent menu bar on which we click sub menu bar and child of sub menu bar open
+
+he had uploaded the data and create foreign key constraint on them
+
+steps
+
+first we will create route but here we want to search on slug we want the slug like
+
+product/parentmenu/submenu     and display all the data sub child data 
+
+Route::get('/product/{categorySlug}/{subcategorySlug}', 'api\getcat@findBasedOnSubcategory');
+
+now create a controller and function or it
+
+for debugging purpose 
+
+//here Request $request is general thing
+//$categorySlug is the parameter passed in the router so we need it here also 
+//SubCategory $subcategorySlug   we need to dislay data from subcategory so for that we need its model 
+
+
+                public function findBasedOnSubcategory(Request $request,$categorySlug , SubCategory $subcategorySlug){
+
+                                              return 'hi';
+                                                         }
+                                                         
+as by default primary key is use for seraching but here we want slug as primary key for that we need to include the following function
+in subcategory model 
+                                 public function getRouteKeyName()
+    { 
+                        return 'slug';
+    }
+    
+    //now go to url and check it but note {categorySlug}/{subcategorySlug} must be db which you want to pass in url 
+    
+   
+   as sub menu had many child sub menu so for that
+   
+   
+   public function ads()
+   {
+       return $this->hasMany(Advertisement::class);
+   }
+
+
+  public function findBasedOnSubcategory(Request $request,$categorySlug , SubCategory $subcategorySlug){
+
+$ads=$subcategorySlug->ads;
+         return $ads
+           }
+   now display it in loop  
+
+    
+    
+    
+    
+    
+    
+    
+    

@@ -15,24 +15,53 @@ Route::get('profile-edit','Home@profileupdate')->name('profile-edit');
     }
     
     
+    
+    //  <form method="POST" action="{{ route('user-profile-information.update') }}"  enctype="multipart/form-data">>
+                        @csrf
+                        @method('PUT')
+                        
+                        
+                        
+    
     //now create the view which you want in desired location   profile.blade.php
                                 //add this like below in input field as example 
+                                
+                                //note you must display and pass name and email to the update function of foritfy other wise it will not work
                                  value="{{ old('name') ?? auth()->user()->name }}"
                                  
                    <input type="text" class="form-control" id="fname" value="{{ old('name') ?? auth()->user()->name }}">
                    
   //profile picture or image insert new columh in database manullay or through migration make it by default NULL
   
-  //here we will display like 
-                      @if(Auth::user()->image ='NULL')  
-// this is the location of the image here give the manually address
-           <img class="profile-pic" src="{{asset('admin/images/user/11.png')}}" alt="profile-pic">
-   @else              	
-    
-    <img class="profile-pic" src="{{asset(Auth::user()->image}}" alt="profile-pic">
-@endif                  	
+
+<img class="profile-pic" src="{{asset('images/'.Auth::user()->image)}}"  name="image" alt="profile-pic"  />               	
   
                                  
+          now we will store the image for that we will take care of few thing 
+          app/action/updateprofileinformation in this file update function
+          inside update function we will go for force save in else block there 
+          
+          
+          use Illuminate\Support\Facades\Request;
+          
+           $imageName = time().'.'.Request::file('image')->extension();  
+   
+     $image=   Request::file('image')->move(public_path('images'), $imageName);
+     
+     
+     and in force save 
+     
+      'image' => $imageName,
+      
+      and also make it fillable in user model
+      
+      
+      
+      //normaly we store like this 
+      
+              $imageName = time().'.'.$request->image->extension();  
+   
+        $request->image->move(public_path('images'), $imageName);
 
 
 ?>

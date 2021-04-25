@@ -36,21 +36,37 @@
            
            <?php     
            
-           
+           //create controller in cmd
            php artisan make:controller Home
              
-  routes
-             
+
+             //create routes in web.php
                  Route::get('home','Home@index');
              
-  home controller
-  
+ 
+  //create index function in home controller
                            public function index(){
                             return view('home');
                           }
+                          
+ // now create logout option in home controller 
+                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
              
              
-             
+     //now prevent the home page if user is not login redirect to login if he want to access the home page
+                                        public function __construct(){
+                                                     $this->middleware('auth');
+                                                        }
+      //now this will redirect to login url which you had created in web.php if not then cretae it like
+       Fortify::loginView(function () {
+ return view('auth.login');
+    });
              
              
              

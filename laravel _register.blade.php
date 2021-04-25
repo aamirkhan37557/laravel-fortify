@@ -1,12 +1,15 @@
 1. connect laravel with db
 2.   after installing laravel fortify  create route for register user in web.php and make design for it 
 
-
+<?php
                                       use Laravel\Fortify\Fortify;
 
                                    Fortify::registerView(function () {
                                      return view('admincredentials/register');
                                      });
+                                     
+                                     
+  ?>
                                       
 3. in register view first display error 
                            
@@ -27,7 +30,34 @@
  
  5. check all the in fields names like name,email,password,confirm password etc
  
- 6.after succssfully registeration it will redirect to home route create home route for it
+ 6.after succssfully registeration it will redirect to home route create home route for it 
+ 
+           
+           
+           <?php     
+           
+           
+           php artisan make:controller Home
+             
+  routes
+             
+                 Route::get('home','Home@index');
+             
+  home controller
+  
+                           public function index(){
+                            return view('home');
+                          }
+             
+             
+             
+             
+             
+             
+             ?>
+             
+             
+ 
 
 
                                      

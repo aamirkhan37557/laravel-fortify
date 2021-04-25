@@ -1,7 +1,7 @@
 1. connect laravel with db
 2.   after installing laravel fortify  create route for register user in web.php and make design for it 
 
-<?php
+<?php         
                                       use Laravel\Fortify\Fortify;
 
                                    Fortify::registerView(function () {

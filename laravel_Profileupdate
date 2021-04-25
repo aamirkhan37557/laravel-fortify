@@ -1,0 +1,38 @@
+<?php
+//first show or display your profile after that we will edit it 
+
+
+//first create a link for profile show
+<a   href="{{route('profile-edit')}}" > profile </a>
+
+// as there is no route for profile edit in laravel fortify so create a route for it 
+
+Route::get('profile-edit','Home@profileupdate')->name('profile-edit');
+ 
+ //in controller
+  public function profileupdate(){
+    	return view('auth.profile');
+    }
+    
+    
+    //now create the view which you want in desired location   profile.blade.php
+                                //add this like below in input field as example 
+                                 value="{{ old('name') ?? auth()->user()->name }}"
+                                 
+                   <input type="text" class="form-control" id="fname" value="{{ old('name') ?? auth()->user()->name }}">
+                   
+  //profile picture or image insert new columh in database manullay or through migration make it by default NULL
+  
+  //here we will display like 
+                      @if(Auth::user()->image ='NULL')  
+// this is the location of the image here give the manually address
+           <img class="profile-pic" src="{{asset('admin/images/user/11.png')}}" alt="profile-pic">
+   @else              	
+    
+    <img class="profile-pic" src="{{asset(Auth::user()->image}}" alt="profile-pic">
+@endif                  	
+  
+                                 
+
+
+?>

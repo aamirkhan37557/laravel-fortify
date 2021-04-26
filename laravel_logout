@@ -1,0 +1,66 @@
+<?php
+
+//create route to view password
+     Route::get('update-password','Home@updatepassword')->name('updatepassword');
+     
+     
+     
+     // controller
+                 public function updatepassword(){
+                          return view('pwdup');
+                          }
+
+
+
+     
+     // in view 
+	<form action="{{route('change-password')}}" method="post">@csrf
+
+<input type="password" name="current_password">
+
+<input type="password"  name="password">
+
+<input type="password" name="password_confirmation">
+
+<input type="submit" name="submit">
+</form>
+
+
+//route to update password
+   Route::post('change-password','Home@changepassword')->name('change-password');
+   
+   
+   //controller password
+    public function changepassword(Request $request){
+
+ 	$valiatedata = $request->validate([
+       'current_password' => 'required',
+      'password' =>'required|confirmed',
+ 	]);
+
+ 	 $hashedpassword = Auth::user()->password;
+
+ 	if(hash::check($request->current_password,$hashedpassword)){
+
+   $pass= Auth::user()->password = hash::make($request->newpassword);
+
+   Auth::user()->save();
+   Auth::logout();
+   return "admin logout";
+ 	}
+
+ 	else{
+ 		return "redirect to the same page";
+ 	}
+
+ }
+
+
+
+
+
+
+
+
+
+?>
